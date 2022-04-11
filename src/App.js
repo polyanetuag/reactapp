@@ -1,7 +1,7 @@
 import React from 'react';
 
 const App = () => { 
-  return <div>Meu App</div>;
+  return <a className='ativo' href='https://google.com' title='Ir para site Google'>Google</a>;
 };
 
 export default App;
