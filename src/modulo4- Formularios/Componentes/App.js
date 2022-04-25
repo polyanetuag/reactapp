@@ -10,6 +10,25 @@ const App = () => {
   const [produto, setProduto] = React.useState("");
   const [cor, setCor] = React.useState("");
   const [linguagens, setLinguagens] = React.useState([]);
+  const [cep, setCep] = React.useState("");
+  const [error, setError] = React.useState(null);
+
+  function validateCep(value) {
+    if(value.length === 0) {
+      setError('Preencha o CEP');
+      return false;
+    } else if(!/^\d{5}-\d{3}$/.test(value)) {
+      setError('Preencha um CEP válido');
+      return false;
+    } else {
+      setError(null);
+      return true;
+    }
+  }
+
+  function handleBlur({target}) {
+    validateCep(target.value);
+  }
 
   return (
     <form>
@@ -27,6 +46,17 @@ const App = () => {
       />
       <Input id="nome" label="Nome" value={nome} setValue={setNome} required />
       <Input id="email" label="Email" value={email} setValue={setEmail} />
+
+      <Input
+        label='CEP'
+        id='cep'
+        type='text'
+        value={cep}
+        setValue={setCep}
+        onBlur={handleBlur}
+        placeholder='000000-000'
+        />
+        {error && <span style={{color: 'red'}}>{error}</span>}
     </form>
   );
 };
